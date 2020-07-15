@@ -10,6 +10,7 @@ import java.io.IOException;
 /**
  * 测试超级管理员用户
  * 11111
+ * 123
  */
 public class AutthSuperTest {
     final static String path = "/zk-book";
