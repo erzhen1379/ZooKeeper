@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,7 @@ package org.apache.zookeeper.server;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import org.junit.Test;
@@ -30,14 +31,24 @@ public class DataNodeTest {
         // create DataNode and call getChildren
         DataNode dataNode = new DataNode();
         Set<String> children = dataNode.getChildren();
+
+        System.out.println(children.size());
         assertNotNull(children);
         assertEquals(0, children.size());
 
         // add child,remove child and then call getChildren
         String child = "child";
         dataNode.addChild(child);
-        dataNode.removeChild(child);
+
+
         children = dataNode.getChildren();
+        Iterator<String> iterator = children.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+
+
+        dataNode.removeChild(child);
         assertNotNull(children);
         assertEquals(0, children.size());
 
@@ -54,6 +65,7 @@ public class DataNodeTest {
     @Test
     public void testGetChildrenReturnsImmutableEmptySet() {
         DataNode dataNode = new DataNode();
+        //set为unmodifiableSet不可更改类型
         Set<String> children = dataNode.getChildren();
         try {
             children.add("new child");
@@ -62,4 +74,5 @@ public class DataNodeTest {
             // do nothing
         }
     }
+
 }
